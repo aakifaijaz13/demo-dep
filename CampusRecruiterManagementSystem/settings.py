@@ -140,3 +140,5 @@ AWS_S3_FILE_OVERWRITE = False
 AWS_DEFAULT_ACL =  None
 AWS_S3_VERITY = True
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
+
+ALLOWED_HOSTS = ['44.202.110.36','198.211.99.20', 'localhost', '127.0.0.1']

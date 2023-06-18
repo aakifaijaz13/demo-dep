@@ -1,0 +1,157 @@
+{% extends 'candidateNavbar.html' %}
+{% block main %}
+    {% load custom_filters %}
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.3/js/dataTables.bootstrap4.min.js"></script>
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/css/bootstrap.css">
+    <link rel="stylesheet"
+          href="https://cdn.datatables.net/1.11.3/css/dataTables.bootstrap4.min.css">
+    <div class="row">
+        <div class="col-sm-2">
+            <label for="filterbox" style="text-align: right; width: 100%">Search:</label>
+        </div>
+        <div class="col-sm-5">
+            <input id="filterbox" type="search" class="form-control" placeholder=" ">
+        </div>
+        <div class="col-sm-3">
+            <select class="form-control" id="location">
+                {% for x in locations %}
+                    {% if forloop.first %}
+                        <option value="{{ x }}" selected>{{ x }}</option>
+                    {% else %}
+                        <option value="{{ x }}">{{ x }}</option>
+                    {% endif %}
+                {% endfor %}
+            </select>
+        </div>
+    </div>
+    <script>
+    console.log(`{{ recommend.count }}`);
+    </script>
+    {% if recommend_size > 0 %}
+    <div class="card shadow m-5" id="recommended_div">
+        <div class="card-body">
+            <h5 class="p-2 text-danger" style="border-bottom: 2px solid green">Recommended Vacancy</h5>
+            <div class="container mt-3">
+                <h1 class="text-success text-center"></h1>
+
+                <table id="example1" class="table table-striped table-bordered">
+                    <thead style="background-color: #9e9e9e">
+                    <tr>
+                        <th class="text-danger">S.NO</th>
+                        <th class="text-danger">Company Name</th>
+                        <th class="text-danger">Job Title</th>
+                        <th class="text-danger"> Apply Start Date</th>
+                        <th class="text-danger"> Apply Last Date</th>
+                        <th class="text-danger">Action</th>
+                    </tr>
+                    </thead>
+
+                    <tbody>
+                    {% for i in recommend %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.companies.user.first_name }}</td>
+                            <td>{{ i.JobTitle }}</td>
+                            <td>{{ i.ApplyDate }}</td>
+                            <td>{{ i.LastDate }}</td>
+                            {% if i.id in li %}
+                                <td><span style="color: green;">Applied</span></td>
+                            {% else %}
+                                <td><a href="{% url 'viewVacancyDetails' i.id %}" class="btn btn-primary">Apply For
+                                    Job</a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+    <div class="card shadow m-5">
+        <div class="card-body">
+            <h5 class="p-2 text-danger" style="border-bottom: 2px solid green">View Vacancy</h5>
+            <div class="container mt-3">
+                <h1 class="text-success text-center"></h1>
+                <table id="example" class="table table-striped table-bordered">
+                    <thead style="background-color: #9e9e9e">
+                    <tr>
+                        <th class="text-danger">S.NO </th>
+                        <th class="text-danger">Company Name</th>
+                        <th class="text-danger">Job Title</th>
+                        <th class="text-danger"> Apply Start Date</th>
+                        <th class="text-danger"> Apply Last Date</th>
+                        <th class="text-danger">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for i in vacancies %}
+                        <tr>
+                            <td>{{ forloop.counter }}</td>
+                            <td>{{ i.companies.user.first_name }}</td>
+                            <td>{{ i.JobTitle }}</td>
+                            <td>{{ i.ApplyDate }}</td>
+                            <td>{{ i.LastDate }} <p class="d-none">{{ i.JobLocation }}</p></td>
+                            {% if i.id in li %}
+                                <td><span style="color: green;">Applied</span></td>
+                            {% else %}
+                                <td><a href="{% url 'viewVacancyDetails' i.id %}" class="btn btn-primary">Apply For
+                                    Job</a></td>
+                            {% endif %}
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        $(document).ready(function () {
+
+            let table = new DataTable('#example', {
+                ordering: false,
+                paging: false,
+                "dom": 'rt'
+            });
+            let table1 = new DataTable('#example1', {
+                ordering: false,
+                "dom": 'rt'
+            });
+            $("#filterbox").on('input', function () {
+                let mySelect = document.getElementById("location");
+                if (mySelect.value !== "All") {
+                    table.search(this.value + " " + mySelect.value).draw();
+                } else {
+                    table.search(this.value).draw();
+                }
+                if (this.value === '' && mySelect.value === "All") {
+                    $('#recommended_div').fadeIn();
+                } else {
+                    $('#recommended_div').fadeOut();
+                }
+            });
+            let mySelect = document.getElementById("location");
+            mySelect.addEventListener("change", function () {
+                let filter = document.getElementById("filterbox").value;
+                if (filter === '') {
+                    filter = this.value === "All" ? filter : filter + " " + this.value;
+                    table.search(filter).draw();
+                } else {
+                    filter = this.value === "All" ? filter : filter + " " + this.value;
+                    table.search(filter).draw();
+                }
+                if (this.value === 'All' && filter === '') {
+                    $('#recommended_div').fadeIn();
+                } else {
+                    $('#recommended_div').fadeOut();
+                }
+            });
+
+        });
+    </script>
+
+{% endblock %}

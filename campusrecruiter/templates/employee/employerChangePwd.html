@@ -1,0 +1,66 @@
+{% extends 'employeeNavbar.html' %}
+{% block main %}
+
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <h5 class="p-2 text-danger" style="border-bottom: 2px solid green;">Change Password</h5>
+                <div class="card-body b-b">
+                    <form method="post" name="changepassword" onsubmit="return checkpassword()">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-12">
+                                <label class="col-form-label">Current Password</label>
+                                <input type="password" name="oldpassword" placeholder="Enter Current Password" class="form-control" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="col-form-label">New Password</label>
+                                <input type="password" name="newpassword" placeholder="Enter New Password" class="form-control" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-form-label">Confirm Password</label>
+                            <input type="password" name="confirmpassword" placeholder="Enter Confirm Password" class="form-control" required>
+                        </div>
+
+                        <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                    </form>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    function checkpassword(){
+    if(document.changepassword.newpassword.value!=document.changepassword.confirmpassword.value){
+    alert('New Password and Confirm Password field does not Match');
+    document.changepassword.confirmpassword.focus();
+    return false;
+    }
+    return true;
+    }
+</script>
+
+{% if error == "no" %}
+<script>
+    alert('Password updated successfully');
+    window.location=('{% url 'logout' %}');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong , try again later');
+</script>
+{% endif %}
+
+{% if error == "not" %}
+<script>
+    alert('Your current password is wrong');
+</script>
+{% endif %}
+
+{% endblock %}

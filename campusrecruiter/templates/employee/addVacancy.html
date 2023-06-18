@@ -1,0 +1,91 @@
+{% extends 'employeeNavbar.html' %}
+{% block main %}
+
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="p-2 text-danger" style="border-bottom: 2px solid green;">Job Information</h5>
+                    <div class="card-body b-b">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Job Title</label>
+                                    <input type="text" class="form-control" name="JobTitle" placeholder="Job Title"
+                                           required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Monthly Salary (In-hand) </label>
+                                    <input type="text" class="form-control" name="MonthlySalary"
+                                           placeholder="Monthly Salary (In-hand)"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Job Descriptions</label>
+                                    <textarea type="text" class="form-control" name="JobDescriptions"
+                                              placeholder="Job Descriptions"
+                                              required></textarea>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label>Job Location</label>
+                                    <input type="text" class="form-control" name="JobLocation"
+                                           placeholder="Job Locations"
+                                           required>
+                                </div>
+                            </div>
+
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Category</label>
+                                    <select class="form-control" name="Category">
+                                        <option value="Entry Level" selected>Entry Level</option>
+                                        <option value="Mid Level">Mid Level</option>
+                                        <option value="Senior Level">Senior Level</option>
+                                    </select>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>No of Opening</label>
+                                    <input type="text" class="form-control" name="NoofOpenings"
+                                           placeholder="No of Opening"
+                                           required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label>Apply Date</label>
+                                    <input type="date" class="form-control" name="ApplyDate" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label>Last Date</label>
+                                    <input type="date" class="form-control" name="LastDate" required>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn-primary" name="submit">Submit</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if error ==  "no" %}
+        <script>
+            alert('Job Detail has been added.');
+
+        </script>
+    {% endif %}
+    {% if error == "yes" %}
+        <script>
+            alert('Something Went Wrong. Please try again');
+
+        </script>
+    {% endif %}
+
+{% endblock %}

@@ -1,0 +1,49 @@
+{% extends 'adminNavbar.html' %}
+{% block main %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid green">Company Details</h5>
+        <div class="container">
+            <table class="table table-striped table-bordered mt-5">
+                <thead class="text-center">
+                <tr>
+                    <th>Company Name</th>
+                    <td>{{company.user.first_name}}</td>
+                </tr>
+                <tr>
+                    <th>Contact Person</th>
+                    <td>{{company.ContactPerson}}</td>
+                </tr>
+                <tr>
+                    <th>Company URL</th>
+                    <td>{{company.CompanyUrl}}</td>
+                </tr>
+                <tr>
+                    <th>Company Address</th>
+                    <td>{{company.CompanyAddress}}</td>
+                </tr>
+
+                <tr>
+                    <th>Mobile Number</th>
+                    <td>{{company.MobileNumber}}</td>
+                </tr>
+                <tr>
+                    <th>Email address</th>
+                    <td>{{company.user.username}}</td>
+                </tr>
+                <tr>
+                    <th>Company Logo</th>
+                    <td><img src="{{company.CompanyLogo.url}}" width="100" height="100"></td>
+                </tr>
+                <tr>
+                    <th>Company Registration Date</th>
+                    <td>{{company.CompanyRegdate}}</td>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

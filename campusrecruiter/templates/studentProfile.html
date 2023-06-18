@@ -1,0 +1,119 @@
+{% extends 'candidateNavbar.html' %}
+{% block main %}
+
+<style>
+    label{color : red}
+    input[type="text"], input[type="email"] , input[type="number"] , input[type="date"] , textarea {
+
+  background-color : #d1d1d1 ; color : blue;
+
+}
+</style>
+<div class="container-fluid my-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <h5 class="p-2 text-danger" style="border-bottom: 2px solid green;">Student Profile</h5>
+                <div class="card-body b-b">
+                    <form method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <label class="col-form-label">Fisrt Name</label>
+                                <input type="text" class="form-control" name="firstName"
+                                       value="{{candidate.user.first_name}}" required>
+                            </div>
+
+                            <div class="form-group col-md-6">
+                                <label class="col-form-label">Last Name</label>
+                                <input type="text" class="form-control" name="lastName"
+                                       value="{{candidate.user.last_name}}" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Email ID</label>
+                            <input type="email" name="email" class="form-control" value="{{candidate.user.username}}"
+                                   readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Mobile Number</label>
+                            <input type="number" name="MobileNumber" class="form-control" value="{{candidate.MobileNumber}}" maxlength="10" required>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label class="col-form-label">Student ID</label>
+                            <input type="number" name="StudentID" class="form-control" value="{{candidate.StudentID}}"
+                                   readonly>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Gender</label>
+                            <select name="Gender" class="form-control">
+                                <option value="{{candidate.Gender}}">{{candidate.Gender}}</option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                            </select>
+                        </div>
+
+                        {% if not candidate.Image %}
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Image</label>
+                                <input type="file" name="Image" class="form-control" required>
+                            </div>
+                        </div>
+
+                        {% else %}
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label class="col-form-label">Image</label>
+                                <input type="file" name="Image" class="form-control">
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <img src="{{candidate.Image.url}}" name="Image" height="100" width="100">
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <div class="form-group">
+                            <label class="col-form-label">Age</label>
+                            <input type="number" class="form-control" name="Age" value="{{candidate.Age}}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Date of Birth</label>
+                            <input type="date" class="form-control" name="DOB" value="{{candidate.DOB|date:'Y-m-d'}}" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-form-label">Registration Date</label>
+                            <input type="text" class="form-control" value="{{candidate.ResponseDate}}" readonly>
+                        </div>
+
+                        <button type="submit" name="submit" class="btn btn-primary"><i class="ti-home"></i>Update</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+{% if error ==  "no" %}
+<script>
+    alert('Profile has been Updated');
+</script>
+{% endif %}
+{% if error == "yes" %}
+<script>
+    alert('Something Went Wrong. Please try again');
+</script>
+{% endif %}
+
+{% endblock %}

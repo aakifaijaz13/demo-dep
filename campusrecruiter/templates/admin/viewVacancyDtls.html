@@ -1,0 +1,56 @@
+{% extends 'adminNavbar.html' %}
+{% block main %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid green">Vacancy Details</h5>
+        <div class="container">
+            <table class="table table-striped table-bordered mt-5">
+                <thead class="text-center">
+
+                <tr>
+                    <th>Job Title</th>
+                    <td>{{vacancy.JobTitle}}</td>
+                </tr>
+
+                <tr>
+                    <th>Company Name</th>
+                    <td>{{vacancy.companies.user.first_name}}</td>
+                </tr>
+
+                <tr>
+                    <th>Monthly Salary (In-Hand)</th>
+                    <td>{{vacancy.MonthlySalary}}</td>
+                </tr>
+
+                <tr>
+                    <th>Job Descriptions</th>
+                    <td>{{vacancy.JobDescriptions}}</td>
+                </tr>
+
+                <tr>
+                    <th>Job Location</th>
+                    <td>{{vacancy.JobLocation}}</td>
+                </tr>
+
+                <tr>
+                    <th>No. of Opening</th>
+                    <td>{{vacancy.NoofOpenings}}</td>
+                </tr>
+                <tr>
+                    <th>Apply Date</th>
+                    <td>{{vacancy.ApplyDate}}</td>
+                </tr>
+                <tr>
+                    <th>Last Date</th>
+                    <td>{{vacancy.LastDate}}</td>
+                </tr>
+
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends 'adminNavbar.html' %}
+{% block main %}
+{% load static %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid green">Candidate Details</h5>
+        <div class="container">
+            <table class="table table-striped table-bordered mt-5">
+                <thead class="text-center">
+
+                <tr>
+                    <th>Full Name</th>
+                    <td>{{candidate.user.first_name}} {{candidate.user.last_name}}</td>
+                </tr>
+                <tr>
+                    <th>Email</th>
+                    <td>{{candidate.user.username}}</td>
+                </tr>
+                <tr>
+                    <th>MobileNumber</th>
+                    <td>{{candidate.MobileNumber}}</td>
+                </tr>
+                <tr>
+                    <th>Student ID</th>
+                    <td>{{candidate.StudentID}}</td>
+                </tr>
+
+                <tr>
+                    <th>Gender</th>
+                    <td>{{candidate.Gender}}</td>
+                </tr>
+                <tr>
+                    <th>Address</th>
+                    <td>{{candidate.Address}}</td>
+                </tr>
+                <tr>
+                    <th>Age</th>
+                    <td>{{candidate.Age}}</td>
+                </tr>
+                <tr>
+                    <th>DOB</th>
+                    <td>{{candidate.DOB}}</td>
+                </tr>
+                <tr>
+                    <th>Candidate Pic</th>
+                    {% if not candidate.Image %}
+                    <td><img src="{% static 'assets/img/nopic.jpg' %}" width="100" height="100"></td>
+                    {% else %}
+                    <td><img src="{{candidate.Image.url}}" width="100" height="100"></td>
+                    {% endif %}
+                </tr>
+                <tr>
+                    <th>User Registration Date</th>
+                    <td>{{candidate.ResponseDate}}</td>
+                </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</div>
+</div>
+</div>
+
+{% endblock %}

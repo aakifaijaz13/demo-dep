@@ -1,0 +1,89 @@
+{% extends 'candidateNavbar.html' %}
+{% block main %}
+
+<div class="card shadow my-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="p-2 text-danger" style="border-bottom: 2px solid green">View Vacancy Detail</h5>
+
+                    <div class="card-body">
+                        <table border="1" class="table table-striped table-bordered table-hover">
+
+                            <tr>
+                                <th>Job Title</th>
+                                <td>{{vacancy.JobTitle}}</td>
+
+                                <th>Company Name</th>
+                                <td>{{vacancy.companies.user.first_name}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Job Descriptions</th>
+                                <td colspan="3">{{vacancy.JobDescriptions}}</td>
+                            </tr>
+
+                            <tr>
+                                <th>Monthly Salary (In-hand)</th>
+                                <td>{{vacancy.MonthlySalary}}</td>
+
+                                <th>Job Location</th>
+                                <td>{{vacancy.JobLocation}}</td>
+                            </tr>
+                            <tr>
+                                <th>No of Opening</th>
+                                <td colspan="3">{{vacancy.NoofOpenings}}</td>
+                            </tr>
+                                <th>Apply Date</th>
+                                <td>{{vacancy.ApplyDate}}</td>
+
+                                <th>Last Date</th>
+                                <td>{{vacancy.LastDate}}</td>
+                            </tr>
+                        </table>
+
+                        <table class="table table-bordered table-hover data-tables">
+
+                            <form method="post" name="submit" enctype="multipart/form-data">
+                               {% csrf_token %}
+                                <tr>
+                                    <th>Upload Resume :</th>
+                                    <td><input type='file' name="Resume" rows="12" cols="14" class="form-control wd-450" required></td>
+                                </tr>
+
+
+                                <tr>
+                                    <td colspan="2"><button type="submit" name="submit" class="btn btn-primary">Apply Now</button></td>
+                                </tr>
+
+                            </form>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+</div>
+
+{% if error ==  "close" %}
+<script>
+    alert('Applied Job has been Expired');
+    window.location=('{% url 'viewVacancy' %}');
+</script>
+{% endif %}
+{% if error == "notopen" %}
+<script>
+    alert('Application date is not open');
+    window.location=('{% url 'viewVacancy' %}');
+</script>
+{% endif %}
+
+{% if error == "done" %}
+<script>
+    alert('Job Application submitted Successfully');
+</script>
+{% endif %}
+{% endblock %}

@@ -1,0 +1,44 @@
+{% extends 'employeeNavbar.html' %}
+{% load custom_filters %}
+{% block main %}
+
+<div class="card shadow">
+    <div class="card-body">
+        <h4 class="p-2 text-danger" style="border-bottom: 2px solid green;">Applications Counts Reports</h4>
+        <div class="container-fluid mt-3">
+            <h5 align="center" style="color:blue">Applications Counts Report from <span style="color:red">{{fd}}</span> to <span
+                    style="color:red">{{td}}</span></h5>
+            <table id="example" class="table table-striped table-bordered mt-5">
+                        <thead style="background-color: #9e9e9e">
+                <tr>
+                    <td class="text-danger">S.NO</td>
+                    <td class="text-danger">Job Title</td>
+                    <td class="text-danger">Number of applications</td>
+                </tr>
+                </thead>
+                <tbody>
+                {% for i in applyjob %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.vacancy.JobTitle}}</td>
+                    <td>{% applicationcount i.vacancy.JobTitle request.user %}</td>
+                </tr>
+
+
+                {% empty %}
+                <tr>
+                    <td colspan="8"> No record found against this search</td>
+                </tr>
+                {% endfor %}
+            <!--
+                 <tr>
+                    <td colspan="2" style="text-align:center">Total </td>
+                    <td></td>
+                </tr>  -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,154 @@
+{% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="{% static 'assets/css/canstyle.css' %}">
+    <title>Employee Sign & Sign up Form</title>
+</head>
+
+<body>
+<div class="container">
+    <div class="forms-container">
+        <div class="signin-signup">
+            <form method="post" class="sign-in-form">
+                {% csrf_token %}
+                <h2 class="title">Sign in</h2>
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Company Email Address" name="email" required/>
+                </div>
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password" required/>
+                </div>
+                <input type="submit" value="Login" name="signin" class="btn solid"/>
+                <p style="display: flex;justify-content: center;align-items: center;margin-top: 20px;"><a
+                        href="{% url 'index' %}" style="color: #4590ef;">Back to Home</a></p>
+            </form>
+
+{% if error1 == "no" %}
+<script>
+    alert('Logged In Successfully');
+    window.location=('{% url 'empDashboard' %}');
+</script>
+{% endif %}
+
+{% if error1 == "yes" %}
+<script>
+    alert('Something went wrong. Try Again...');
+</script>
+{% endif %}
+
+<script>
+    function checkpass()
+    {
+      if(document.signup.password.value!=document.signup.cpwd.value){
+        alert('Password and Confirm Password field does not match');
+        document.signup.cpwd.focus();
+        return false;
+      }
+      return true;
+    }
+</script>
+
+            <form class="sign-up-form" method="POST" name="signup" onsubmit="return checkpass();" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2 class="title">Sign up</h2>
+
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Name of Company" name="CompanyName" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-user"></i>
+                    <input type="text" placeholder="Name of Contact Person" name="ContactPerson" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-envelope"></i>
+                    <input type="email" placeholder="Email of Company" name="email" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Password" name="password" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-lock"></i>
+                    <input type="password" placeholder="Confirm Password" name="cpwd" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-phone-volume"></i>
+                    <input type="text" placeholder="Enter Your Mobile Number" name="MobileNumber" maxlength="10" pattern="[0-9]+" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" placeholder="Enter Company URL" name="CompanyUrl" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-id-card"></i>
+                    <input type="text" placeholder="Address of Company" name="CompanyAddress" required/>
+                </div>
+
+                <div class="input-field">
+                    <i class="fas fa-users"></i>
+                    <input type="file" name="CompanyLogo" required/>
+                </div>
+
+                <input type="submit" class="btn" name="signup" value="Sign up"/>
+            </form>
+        </div>
+    </div>
+
+{% if error == "no" %}
+<script>
+    alert('Registration Successfully');
+</script>
+{% endif %}
+
+{% if error == "yes" %}
+<script>
+    alert('Something went wrong. Try Again...');
+</script>
+{% endif %}
+
+    <div class="panels-container">
+        <div class="panel left-panel">
+            <div class="content">
+                <h3>New here ?</h3>
+                <p>
+                    If you have not registration then click on the Sign up button.
+                </p>
+                <button class="btn transparent" id="sign-up-btn">
+                    Sign up
+                </button>
+            </div>
+            <img src="{% static 'assets/img/log.png' %}" class="image" alt=""/>
+        </div>
+        <div class="panel right-panel">
+            <div class="content">
+                <h3>One of us ?</h3>
+                <p>
+                    If you have already registratio then click on Sign in button.
+                </p>
+                <button class="btn transparent" id="sign-in-btn">
+                    Sign in
+                </button>
+            </div>
+            <img src="{% static 'assets/img/register.png' %}" class="image" alt=""/>
+        </div>
+    </div>
+</div>
+
+<script src="https://kit.fontawesome.com/64d58efce2.js" crossorigin="anonymous"></script>
+<script src="{% static 'assets/js/canapp.js' %}"></script>
+
+</body>
+</html>

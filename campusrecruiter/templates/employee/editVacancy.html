@@ -1,0 +1,90 @@
+{% extends 'employeeNavbar.html' %}
+{% block main %}
+
+    <div class="container-fluid my-3">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <h5 class="p-2 text-danger" style="border-bottom: 2px solid green;">Update Job Information</h5>
+                    <div class="card-body b-b">
+                        <form method="post">
+                            {% csrf_token %}
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Job Title</label>
+                                    <input type="text" class="form-control" name="JobTitle"
+                                           value="{{ vacancy.JobTitle }}"
+                                           required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Monthly Salary (In-hand) </label>
+                                    <input type="text" class="form-control" name="MonthlySalary"
+                                           value="{{ vacancy.MonthlySalary }}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Job Descriptions</label>
+                                    <textarea type="text" class="form-control" name="JobDescriptions"
+                                              required>{{ vacancy.JobDescriptions }}</textarea>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Category</label>
+                                    <select class="form-control" name="Category">
+                                        <option value="Entry Level" {% if vacancy.Category == '' or vacancy.Category == 'Entery Level' %}selected{% endif %}>Entry Level</option>
+                                        <option value="Mid Level" {% if vacancy.Category == 'Mid Level' %}selected{% endif %}>Mid Level</option>
+                                        <option value="Senior Level" {% if vacancy.Category == 'Senior Level' %}selected{% endif %}>Senior Level</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Job Location</label>
+                                    <input type="text" class="form-control" name="JobLocation"
+                                           value="{{ vacancy.JobLocation }}" required>
+                                </div>
+
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">No of Opening</label>
+                                    <input type="text" class="form-control" name="NoofOpenings"
+                                           value="{{ vacancy.NoofOpenings }}" required>
+                                </div>
+                            </div>
+
+                            <div class="form-row">
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Apply Date</label>
+                                    <input type="date" class="form-control" name="ApplyDate"
+                                           value="{{ vacancy.ApplyDate|date:'Y-m-d' }}" required>
+                                </div>
+                                <div class="form-group col-md-6">
+                                    <label class="col-form-label">Last Date</label>
+                                    <input type="date" class="form-control" name="LastDate"
+                                           value="{{ vacancy.LastDate|date:'Y-m-d' }}" required>
+                                </div>
+                            </div>
+                            <hr/>
+                            <button type="submit" class="btn btn-primary">Update <i class="ti-arrow-right"></i></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    {% if error ==  "no" %}
+        <script>
+            alert('Job Detail has been Updated.');
+
+        </script>
+    {% endif %}
+    {% if error == "yes" %}
+        <script>
+            alert('Something Went Wrong. Please try again');
+
+        </script>
+    {% endif %}
+
+{% endblock %}

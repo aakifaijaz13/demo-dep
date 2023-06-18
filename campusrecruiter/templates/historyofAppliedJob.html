@@ -1,0 +1,46 @@
+{% extends 'candidateNavbar.html' %}
+{% block main %}
+
+<div class="card shadow m-5">
+    <div class="card-body">
+        <h5 class="p-2 text-danger" style="border-bottom: 2px solid green">History of Applied Job</h5>
+        <div class="container mt-3">
+            <h1 class="text-success text-center"></h1>
+
+            <table id="example" class="table table-striped table-bordered">
+                <thead style="background-color: #9e9e9e">
+                <tr>
+                    <th class="text-danger">S.NO</th>
+                    <th class="text-danger">Company Name</th>
+                    <th class="text-danger">Job Title</th>
+                    <th class="text-danger">Job Applied Date</th>
+                    <th class="text-danger">Status</th>
+                    <th class="text-danger">Action</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for i in applyjob %}
+                <tr>
+                    <td>{{forloop.counter}}</td>
+                    <td>{{i.vacancy.companies.user.first_name}}</td>
+                    <td>{{i.vacancy.JobTitle}}</td>
+                    <td>{{i.ApplyDate}}</td>
+
+                    {% if i.Status == None %}
+                    <td>Not Responded Yet</td>
+                    {% else %}
+                    <td>{{i.Status}}</td>
+                    {% endif %}
+
+                    <td><a href="{% url 'viewHistoryAppliedjob' i.id %}">View Details</a></td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+
+{% endblock %}

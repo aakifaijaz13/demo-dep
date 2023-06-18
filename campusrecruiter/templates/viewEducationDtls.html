@@ -1,0 +1,76 @@
+{% extends 'candidateNavbar.html' %}
+{% block main %}
+
+<div class="container-fluid my-3">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+
+                <div class="card-body b-b">
+                    <p>View Education Detail</p>
+                </div>
+                <div class="card-body b-b">
+
+                    <table class="table table-bordered table-hover data-tables">
+
+                        <tr>
+                            <th>#</th>
+                            <th>Board / University</th>
+                            <th>Year</th>
+                            <th>Percentage</th>
+                            <th>CGPA</th>
+
+                        </tr>
+                        <tr>
+                            <th>10th(Secondary)</th>
+                            <td>{{education.SecondaryBoard}}</td>
+                            <td>{{education.SecondaryBoardyop}}</td>
+                            <td>{{education.SecondaryBoardper}}</td>
+                            <td>{{education.SecondaryBoardcgpa}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>12th(Senior Secondary)</th>
+                            <td>{{education.SSecondaryBoard}}</td>
+                            <td>{{education.SSecondaryBoardyop}}</td>
+                            <td>{{education.SSecondaryBoardper}}</td>
+                            <td>{{education.SSecondaryBoardcgpa}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Graduation</th>
+                            <td>{{education.GraUni}}</td>
+                            <td>{{education.GraUniyop}}</td>
+                            <td>{{education.GraUnidper}}</td>
+                            <td>{{education.GraUnicgpa}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Post Graduation</th>
+                            <td>{{education.PGUni}}</td>
+                            <td>{{education.PGUniyop}}</td>
+                            <td>{{education.PGUniper}}</td>
+                            <td>{{education.PGUnicgpa}}</td>
+                        </tr>
+
+                    </table>
+                    <table class="table table-bordered table-hover data-tables">
+                        <tr>
+                            <th>Extra Curriculars</th>
+                            <td>{{education.ExtraCurriculars}}</td>
+                        </tr>
+
+                        <tr>
+                            <th>Other Achivement/Certificate/Qualification</th>
+                            <td>{{education.OtherAchivement}}</td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+</div>
+
+{% endblock %}
